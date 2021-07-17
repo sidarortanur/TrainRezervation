@@ -22,7 +22,7 @@ namespace TrainRezervation.Services
             var rezervasyonYapilabilirVagonlar = request.Tren.Vagonlar.Where(x => x.Kapasite * 7 / 10 > x.DoluKoltukAdet).ToList();
             if (rezervasyonYapilabilirVagonlar != null)
             {
-                Vagon kisilerinYerlesebileceğiTekVagon = rezervasyonYapilabilirVagonlar.Where(x => x.Kapasite * 7 / 10 - x.DoluKoltukAdet > request.RezervasyonYapilacakKisiSayisi).FirstOrDefault();
+                Vagon kisilerinYerlesebileceğiTekVagon = rezervasyonYapilabilirVagonlar.Where(x => x.Kapasite * 7 / 10 - x.DoluKoltukAdet >= request.RezervasyonYapilacakKisiSayisi).FirstOrDefault();
 
                 if (!request.KisilerFarkliVagonlaraYerlestirilebilir && kisilerinYerlesebileceğiTekVagon == null)
                     return Task.FromResult(response);
